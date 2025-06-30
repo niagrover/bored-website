@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Activities - Boredom</title>
+  <title>Activities - Bored?</title>
   <style>
     body {
       font-family: "Courier New", Courier, monospace;
-      background: #ffe4ec;
-      color: #ad1457;
+      background: #e6f5e6;
+      color: #2e7d32;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -32,13 +32,13 @@
       font-family: "Courier New", Courier, monospace;
       font-size: 1.1rem;
       padding: 10px 20px;
-      background-color: #f8bbd0;
+      background-color: #b8e6b8;
       border: none;
       border-radius: 10px;
-      color: #880e4f;
+      color: #1b5e20;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 2px 2px 6px #f48fb1;
+      box-shadow: 2px 2px 6px #a0dba0;
       transition: background 0.3s ease;
       position: absolute;
       top: 15px;
@@ -46,7 +46,7 @@
     }
 
     #backButton:hover {
-      background-color: #f48fb1;
+      background-color: #a0dba0;
       color: white;
     }
   </style>
@@ -210,8 +210,8 @@
     });
 
     document.getElementById('backButton').addEventListener('click', (e) => {
-      e.stopPropagation(); // Prevent triggering activity click
-      window.location.href = "index.html"; // ✅ load home page
+      e.stopPropagation();
+      window.location.href = "index.html";
     });
   </script>
 </body>
