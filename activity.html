@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Activities - Boredom</title>
+  <title>Activities - Bored?</title>
   <style>
     body {
       font-family: "Courier New", Courier, monospace;
@@ -23,8 +23,14 @@
 
     #activity {
       max-width: 600px;
-      padding: 30px 20px;
+      padding: 30px 20px 10px;
       line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    #instruction {
+      font-size: 1rem;
+      color: #880e4f;
       margin-bottom: 40px;
     }
 
@@ -53,6 +59,7 @@
 </head>
 <body>
   <div id="activity">Loading activities...</div>
+  <div id="instruction">Click anywhere to see the next idea.</div>
   <button id="backButton">← Back</button>
 
   <script>
@@ -211,7 +218,7 @@
 
     document.getElementById('backButton').addEventListener('click', (e) => {
       e.stopPropagation(); // Prevent triggering activity click
-      window.location.href = "index.html"; // ✅ load home page
+      window.location.href = "index.html";
     });
   </script>
 </body>
