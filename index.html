@@ -5,9 +5,9 @@
   <title>Bored?</title>
   <style>
     body {
-      background-color: #e6f5e6;
       font-family: "Courier New", Courier, monospace;
-      color: #2e7d32;
+      background: #ffe4ec;
+      color: #ad1457;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -19,59 +19,113 @@
     }
 
     h1 {
+      margin-bottom: 10px;
+      font-weight: bold;
       font-size: 3rem;
+      text-shadow: 1px 1px 2px #f8bbd0;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      color: #880e4f;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
       margin-bottom: 30px;
     }
 
-    .button-grid {
-      display: grid;
-      grid-template-columns: repeat(3, auto);
-      grid-gap: 15px;
-      margin-top: 20px;
-      transform: translateY(-10px);
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
     }
 
-    .time-button {
-      padding: 12px 24px;
-      font-size: 1.1rem;
+    button {
+      font-family: "Courier New", Courier, monospace;
+      padding: 12px 20px;
+      font-size: 1.2rem;
       border: none;
       border-radius: 10px;
-      background-color: #b8e6b8;
-      color: #1b5e20;
+      box-shadow: 2px 2px 5px #f48fb1;
+      background: #f8bbd0;
+      color: #880e4f;
       font-weight: bold;
-      font-family: "Courier New", Courier, monospace;
       cursor: pointer;
-      box-shadow: 2px 2px 6px #a0dba0;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
-    .time-button:hover {
-      background-color: #a0dba0;
+    button:hover {
+      background: #f48fb1;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    button.selected {
+      background: #ec407a;
       color: white;
     }
 
-    .instruction {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+    /* New Enter button style */
+    #goButton {
+      background: #880e4f; /* dark pink */
+      color: #ffe4ec; /* light pastel pink */
+      padding: 14px 34px;
+      font-size: 1.4rem;
+      border: none;
+      box-shadow: 2px 2px 8px #ad1457aa;
+      margin-top: 10px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    #goButton:hover {
+      background: #a31166; /* slightly lighter dark pink */
+      color: #fff0f5;
+      transform: scale(1.06);
     }
   </style>
 </head>
 <body>
   <h1>Bored?</h1>
-  <div class="instruction">Choose from the following:</div>
-  <div class="button-grid">
-    <button class="time-button" onclick="goToActivities(2)">2 mins</button>
-    <button class="time-button" onclick="goToActivities(5)">5 mins</button>
-    <button class="time-button" onclick="goToActivities(10)">10 mins</button>
-    <button class="time-button" onclick="goToActivities(15)">15 mins</button>
-    <button class="time-button" onclick="goToActivities(20)">20 mins</button>
-    <button class="time-button" onclick="goToActivities(30)">30 mins</button>
-    <button class="time-button" onclick="goToActivities(60)">60 mins</button>
+  <h2>Choose from the following</h2>
+
+  <div class="button-container">
+    <div class="button-row">
+      <button onclick="selectTime(2)">2 mins</button>
+      <button onclick="selectTime(5)">5 mins</button>
+      <button onclick="selectTime(10)">10 mins</button>
+      <button onclick="selectTime(15)">15 mins</button>
+    </div>
+    <div class="button-row">
+      <button onclick="selectTime(20)">20 mins</button>
+      <button onclick="selectTime(30)">30 mins</button>
+      <button onclick="selectTime(60)">60 mins</button>
+    </div>
   </div>
 
+  <button id="goButton" onclick="goToActivities()">Enter</button>
+
   <script>
-    function goToActivities(minutes) {
-      window.location.href = `activity.html?time=${minutes}`;
+    let selectedTime = null;
+
+    function selectTime(minutes) {
+      selectedTime = minutes;
+      const buttons = document.querySelectorAll(".button-container button");
+      buttons.forEach(btn => btn.classList.remove("selected"));
+      const clickedButton = Array.from(buttons).find(btn => btn.textContent.includes(`${minutes} mins`));
+      if (clickedButton) clickedButton.classList.add("selected");
+    }
+
+    function goToActivities() {
+      if (!selectedTime) {
+        alert("Please choose a time before clicking Enter.");
+        return;
+      }
+      window.location.href = `activity.html?time=${selectedTime}`;
     }
   </script>
 </body>
