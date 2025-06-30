@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Activities - Boredom</title>
+  <style>
+    body {
+      font-family: "Courier New", Courier, monospace;
+      background: #ffe4ec;
+      color: #ad1457;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-size: 1.8rem;
+      padding: 20px;
+      margin: 0;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #activity {
+      max-width: 600px;
+      padding: 30px 20px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    #backButton {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 1.1rem;
+      padding: 10px 20px;
+      background-color: #f8bbd0;
+      border: none;
+      border-radius: 10px;
+      color: #880e4f;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px #f48fb1;
+      transition: background 0.3s ease;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+    }
+
+    #backButton:hover {
+      background-color: #f48fb1;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div id="activity">Loading activities...</div>
+  <button id="backButton">← Back</button>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const time = parseInt(urlParams.get('time'));
+
+    const activitiesByTime = {
+      2: [
+        "Do some light stretches",
+        "Drink a glass of water",
+        "Light a candle",
+        "Blink to rest your eyes",
+        "Adjust your posture",
+        "Go through your emails",
+        "Do some deep breathing exercises",
+        "Doodle or scribble",
+        "Listen to a song with full attention",
+        "Walk up and down the stairs a few times",
+        "Brush your teeth",
+        "Read some inspiring quotes"
+      ],
+      5: [
+        "Journal some things you're grateful for",
+        "Organize your backpack",
+        "Clean a nearby surface",
+        "Refill your water bottle",
+        "Do some quick exercises",
+        "Clean your camera roll",
+        "Make a quick to-do list",
+        "Organize the apps on your phone",
+        "Do Gua Sha / massage your face",
+        "Mediitate",
+        "Learn some words in another language",
+        "Add some items to your wishlist",
+        "Water your plants",
+        "Listen to a song or two",
+        "Make your bed",
+        "Organize your purse or wallet",
+        "Make yourself a coffee",
+        "Do your skin care routine",
+        "Text a friend",
+        "Make a meal plan for your day"
+      ],
+      10: [
+        "Read a few pages of a book",
+        "Sketch something nearby",
+        "Practice mindfulness",
+        "Organize your desk",
+        "Do a clay face mask",
+        "Brew some tea",
+        "Write down your last dream",
+        "Do a lesson on Duolingo",
+        "Clean out your tabs or apps",
+        "Catch up on the news",
+        "Watch a Ted-ed or motivational video",
+        "Pick out an outfit for tomorrow",
+        "Eat a quick snack",
+        "Plan a hangout with your friend"
+      ],
+      15: [
+        "Do a guided meditation",
+        "Call a friend",
+        "Clean part of your room",
+        "Do your makeup",
+        "Organize your stationary",
+        "Do a face mask",
+        "Call a friend",
+        "Learn about something new",
+        "Make a sketch of an object near you",
+        "Do a quick yoga routine",
+        "Organize the files on your computer",
+        "Journal about your day",
+        "Edit photos in your camera roll",
+        "Go for a walk",
+        "Reflect on your week"
+      ],
+      20: [
+        "Make a mood playlist",
+        "Organize your photos",
+        "Start a small craft",
+        "Water your plants",
+        "Paint your nails",
+        "Write a letter to your future / past self",
+        "Read a chapter in a book",
+        "Go for a run",
+        "Make a new playlist",
+        "Vaccum / mop a room",
+        "Read a short story",
+        "Do a photoshoot on your own",
+        "Try guided meditation",
+        "Write a poem"
+      ],
+      30: [
+        "Cook a simple meal",
+        "Start learning a dance",
+        "Do a quick workout",
+        "Clean your closet",
+        "Bake some cookies",
+        "Research a random topic",
+        "Make flash cards to study",
+        "Practice a hobby",
+        "Watch an episode of a TV show",
+        "Find a career that interests you",
+        "Plan a new creative project",
+        "Spend 30 mins with no screens",
+        "Make a canva poster",
+        "Do your homework",
+        "Practice playing an instrument",
+        "Clean your car",
+        "Do a coloring page",
+        "Play video games with your friends",
+        "Start a blog"
+      ],
+      60: [
+        "Work on a passion project",
+        "Try a new recipe",
+        "Write a short story",
+        "Paint something",
+        "Make a vision board",
+        "Learn to play a new instrument",
+        "Watch a quick movie",
+        "Deep clean your room",
+        "Try a new workout",
+        "Watch a documentary",
+        "Build something with legos",
+        "Work towards a personal goal",
+        "Study for a subject in school",
+        "Get your nails done",
+        "Go shopping",
+        "Hangout with a friend",
+        "Do a thorough journal entry",
+        "Go for a long walk and listen to music",
+        "Do something creative",
+        "Try out a new hobby",
+        "Make new goals for yourself",
+        "Play a sport outside",
+        "Learn a new dance"
+      ]
+    };
+
+    let timeKey = Object.keys(activitiesByTime)
+      .map(k => parseInt(k))
+      .find(k => time <= k);
+    if (!timeKey) timeKey = 60;
+
+    const activities = activitiesByTime[timeKey];
+    let index = 0;
+
+    const activityDiv = document.getElementById('activity');
+    activityDiv.textContent = activities[index];
+
+    document.body.addEventListener('click', () => {
+      index = (index + 1) % activities.length;
+      activityDiv.textContent = activities[index];
+    });
+
+    document.getElementById('backButton').addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent triggering activity click
+      window.location.href = "index.html"; // ✅ load home page
+    });
+  </script>
+</body>
+</html>
